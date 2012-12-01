@@ -34,15 +34,21 @@ myfor(First,Last,Result) :-
 	First > Last,
 	Result=[]. 
 
-fib(X,_,_,[X]).
-%fib(First1,_,Last,[First1|Result]) :-
-        %First1 =:= Last,
-        %Result = [].
+
+fib(X,_,X,[X]).
 fib(First1,First2,Last,[First1|Result]) :-
+	First1 =< Last,
 	First2 < Last,
-	First1 =:= Last,
-	Result= [].
-	Sum is First1+First2,
-	fib(First2,Sum,Last,Result).
-	%fib(First2,Sum,Last,List1),
-	%append([First1],List1,Result).
+	NewFirst1 is First2,
+	NewFirst2 is First1+First2,
+	fib(NewFirst1,NewFirst2,Last,Result).
+
+fib(First1,First2,Last,Result) :-
+	First1 < Last,
+	First2 > Last,
+	Result=[First1].
+
+fib(First1,_,Last,Result) :-
+	First1 > Last,
+	Result=[].
+
